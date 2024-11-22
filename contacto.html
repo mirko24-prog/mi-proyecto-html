@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Función para enviar el formulario de contacto
+        function enviarMensaje(event) {
+            event.preventDefault(); // Evitar que se recargue la página al enviar el formulario
+
+            // Obtener los valores del formulario
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const mensaje = document.getElementById('mensaje').value;
+
+            // Crear un objeto de comentario
+            const comentario = {
+                nombre: nombre,
+                email: email,
+                mensaje: mensaje,
+                fecha: new Date().toLocaleString()
+            };
+
+            // Obtener los comentarios previos de localStorage (si existen)
+            let comentarios = JSON.parse(localStorage.getItem('comentarios')) || [];
+
+            // Añadir el nuevo comentario al array
+            comentarios.push(comentario);
+
+            // Guardar los comentarios actualizados en localStorage
+            localStorage.setItem('comentarios', JSON.stringify(comentarios));
+
+            // Mostrar los comentarios en la página
+            mostrarComentarios();
+
+            // Limpiar el formulario
+            document.getElementById('nombre').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('mensaje').value = '';
+        }
+
+        // Función para mostrar los comentarios guardados
+        function mostrarComentarios() {
+            const comentariosDiv = document.getElementById('comentarios-enviados');
+            comentariosDiv.innerHTML = ''; // Limpiar los comentarios previos
+
+            // Obtener los comentarios de localStorage
+            const comentarios = JSON.parse(localStorage.getItem('comentarios')) || [];
+
+            // Mostrar cada comentario
+            comentarios.forEach(comentario => {
+                const comentarioElement = document.createElement('div');
+                comentarioElement.classList.add('comentario');
+                comentarioElement.innerHTML = `
+                    <h4>${comentario.nombre} <small>(${comentario.fecha})</small></h4>
+                    <p><strong>Correo:</strong> ${comentario.email}</p>
+                    <p><strong>Mensaje:</strong> ${comentario.mensaje}</p>
+                    <hr>
+                `;
+                comentariosDiv.appendChild(comentarioElement);
+            });
+        }
+
+        // Mostrar los comentarios al cargar la página
+        window.onload = mostrarComentarios;
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Contacto</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="productos.html">Productos</a>
+            <a href="carrito.html">Carrito</a>
+            <a href="contacto.html">Contacto</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Envíanos tu mensaje</h2>
+
+        <form onsubmit="enviarMensaje(event)">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+
+        <h3>Conéctate con nosotros</h3>
+
+        <!-- Botones de redes sociales -->
+        <div id="social-share">
+            <a href="https://www.facebook.com/marketplace?ref=search_bookmark/contacto.html" target="_blank">
+                <img src="images/facebook.jpeg" alt="Compartir en Facebook">
+            </a>
+            <a href="https://twitter.com/intent/tweet?url=https://tusitioweb.com/contacto.html&text=¡Mira esta página de contacto!" target="_blank">
+                <img src="images/twiter.jpeg" alt="Compartir en Twitter">
+            </a>
+        </div>
+
+        <!-- Comentarios enviados por los usuarios -->
+        <div id="comentarios-enviados">
+            <h3>Comentarios Enviados</h3>
+            <!-- Aquí se mostrarán los comentarios -->
+        </div>
+
+        <!-- Comentarios de Facebook (opcional) -->
+        <div id="comentarios-facebook">
+            <h3>Déjanos tu comentario</h3>
+            <div class="fb-comments" data-href="https://tusitioweb.com/contacto.html" data-width="" data-numposts="5"></div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2024 Marketplace</p>
+    </footer>
+
+    <!-- Script de Facebook SDK para comentarios -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0" nonce="v8vCECTK"></script>
+</body>
+
+</html>

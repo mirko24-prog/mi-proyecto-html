@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Iniciar Sesión</h1>
+    </header>
+
+    <main>
+        <section id="login">
+            <h2>Accede a tu cuenta</h2>
+
+            <form id="formLogin" onsubmit="iniciarSesion(event)">
+                <label for="usuario-login">Nombre de Usuario:</label>
+                <input type="text" id="usuario-login" required>
+
+                <label for="contraseña-login">Contraseña:</label>
+                <input type="password" id="contraseña-login" required>
+
+                <button type="submit">Iniciar sesión</button>
+            </form>
+
+            <p>¿No tienes cuenta? <a href="index.html">Crea una cuenta aquí</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Marketplace</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
